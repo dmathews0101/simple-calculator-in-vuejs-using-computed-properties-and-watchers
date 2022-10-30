@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator in VueJs using Computed Properties and watchers in Vuejs</title>
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Simple VueJs Calculator</h1>
+    
+    <label for="number1"><h4>First number : </h4></label>
+    <input name="number1" type="number" size=10 id='number1' v-model.lazy.number="number1"/>
+
+    <label for="number2"><h4>Second number : </h4></label>
+    <input name="number2" type="number" size=10 id='number2' v-model.lazy.number="number2"/>
+
+    <label for="result"><h4>Result : </h4></label>
+    <input type="text" id='result' v-model.lazy.number="result" readonly >
+    <!-- <b>{{ result }}</b> -->
+
+    <h4>Operators : </h4>
+    <button v-on:click="showresult('1')">+</button>
+    <button v-on:click="showresult('2')">-</button>
+    <button v-on:click="showresult('3')">*</button>
+    <button v-on:click="showresult('4')">/</button>
+    <button v-on:click="showresult('5')">%</button>              
+    
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        number1: 0,
+        number2: 0,
+        choise: '1',
+        res: 1
+      },
+      methods: {
+        showresult: function(choise) {
+          this.choise = choise;
+        }
+      },
+      computed:
+      {
+        result: function()
+        {
+          switch(this.choise)
+          {
+            case '1':
+              return (this.number1+this.number2);
+              break;
+            case '2':
+              return (this.number1-this.number2);
+              break;
+            case '3':
+              return (this.number1*this.number2);
+              break;
+            case '4': 
+              return (this.number1/this.number2);
+              break;
+            case '5':
+              return (this.number1%this.number2);
+              break;
+            default:
+              break;
+          }
+        }
+      },
+      watch:
+      {
+        number1: function()
+        {
+          console.log('Number 1 was changed to : ' + this.number1);
+        },
+        result: function()
+        {
+          console.log('Result was updated to : ' + this.result);
+        }
+      }
+    })
+  </script>
+</body>
+</html>
